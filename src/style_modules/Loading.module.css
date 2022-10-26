@@ -5,12 +5,12 @@
 }
 
 /* dots */
-.loading_container div {
+.dot {
     height: 15px;
     width: 15px;
     margin: 12px;
     border-radius: 8px;
-    background-color: lightgray;
+    background-color: lightgrey;
     animation: jump .9s ease-in-out infinite;
 }
 
@@ -22,16 +22,16 @@
 }
 
 /* dot-1 */
-.loading_container div:nth-child(1){
+.dot_1{
  animation-delay: .4s;
 }
 
 /* dot-2 */
-.loading_container div:nth-child(2){
+.dot_2{
     animation-delay: .5s;
 }
 
 /* dot-3 */
-.loading_container div:nth-child(3){
+.dot_3{
     animation-delay: .6s;
 }
