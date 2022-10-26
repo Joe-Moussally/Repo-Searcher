@@ -12,7 +12,7 @@ import Loading from '../components/Loading';
 import axios from 'axios';
 
 //search page count
-let page = 1;
+let page = 0;
 
 function HomeScreem() {
 
@@ -73,9 +73,8 @@ function HomeScreem() {
     setIsLoading(true)
 
     //clear array in redux store and return
-    dispatch(clearArray())
-    //reset page count on search input change
-    page = 1
+    // dispatch(clearArray())
+  
 
     //if search is empty
     if(searchInput === '') return
@@ -88,7 +87,7 @@ function HomeScreem() {
     //adding per page result
     baseUrl+='&per_page=20'
     //adding page number
-    baseUrl+='&page='+page
+    baseUrl+='&page='+page+1
 
     //fetching data
     axios({
@@ -100,30 +99,10 @@ function HomeScreem() {
       setResultsNumber(formatNumber(response.data.total_count))
       //end loading animation
       setIsLoading(false)
-    })
-  }
 
-  //function that is called when the user reaches the end of the list
-  const fetchMoreData = () => {
-    //increment page count
-    page += 1
+      //on success -> prepare for next page
+      page += 1
 
-    //set url parameter and call the api
-    let baseUrl = "https://api.github.com/search/repositories?"
-
-    //adding search query
-    baseUrl+='q='+searchInput
-    //adding per page result
-    baseUrl+='&per_page=20'
-    //adding page number
-    baseUrl+='&page='+page
-
-    //fetching data
-    axios({
-      url:baseUrl
-    }).then(response => {
-      //update result array in redux store
-      dispatch(updateArray(response.data.items))
     }).catch((err) => {
       //stop loading animation
       setIsLoading(false)
@@ -134,6 +113,38 @@ function HomeScreem() {
       }
     })
   }
+
+  //function that is called when the user reaches the end of the list
+  // const fetchMoreData = () => {
+  //   //increment page count
+  //   page += 1
+
+  //   //set url parameter and call the api
+  //   let baseUrl = "https://api.github.com/search/repositories?"
+
+  //   //adding search query
+  //   baseUrl+='q='+searchInput
+  //   //adding per page result
+  //   baseUrl+='&per_page=20'
+  //   //adding page number
+  //   baseUrl+='&page='+page
+
+  //   //fetching data
+  //   axios({
+  //     url:baseUrl
+  //   }).then(response => {
+  //     //update result array in redux store
+  //     dispatch(updateArray(response.data.items))
+  //   }).catch((err) => {
+  //     //stop loading animation
+  //     setIsLoading(false)
+
+  //     if(err.response.status === 400 || err.response.status === 429) {
+  //       //display error message
+  //       setErrorMessage('Try Again Later')
+  //     }
+  //   })
+  // }
 
   // ------------- useEffect -------------
   //when search input changes -> fetch data
@@ -148,7 +159,7 @@ function HomeScreem() {
       //if scroll position reaches the end
       if ((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight) {
         // on end list reach -> increase page count and call fetch        
-        fetchMoreData()
+        fetchData()
       }
     }
 
