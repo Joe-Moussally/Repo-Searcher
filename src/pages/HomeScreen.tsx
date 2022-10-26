@@ -60,7 +60,7 @@ function HomeScreem() {
   //function that formats a number to string format for visualization
   //ex: 6012554 -> 6,012,554
   const formatNumber = (number) => {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return number?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
   //function to call the api
