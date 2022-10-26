@@ -165,23 +165,22 @@ function HomeScreem() {
 
       <SearchBar />
 
-      {/* <Loading /> */}
-
       {
         (array.length === 0)?
         <>
           {
-            (searchInput === '')?
-            //if repos array is empty and search input is empty
-            <EmptyState text='Type in the search bar'/>:
-              //if api is still fetching -> display loading animation
-              (isLoading)?
-              <Loading />:
-                errorMessage?
-                //if error message changed -> display error message
-                <EmptyState error={true} text={errorMessage}/>:
-                //if repos array is empty and search not empty
-                <EmptyState text='No Repos Found'/>
+            (isLoading && searchInput)?
+            <Loading />:
+            <EmptyState
+              text={
+                // if error message available -> display error
+                errorMessage?errorMessage:
+
+                !searchInput?
+                'Type in the search bar':
+                'No Repos Found'
+              }
+            />
           }
         </>:
         <div className='flex flex-col'>
@@ -192,7 +191,7 @@ function HomeScreem() {
 
           {/* repo cards container */}
           <div
-            className='flex flex-wrap justify-center gap-5 pb-20'
+            className='flex flex-wrap justify-center gap-2 pb-20'
           >
 
             {

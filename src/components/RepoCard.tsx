@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 
-import AddToFavoritesButton from './AddToFavoritesButton'
 import Button from './Button'
 
 import { toggleFavorite, getFavorites } from '../features/favoritesSlice'
@@ -8,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { AiFillStar, AiFillEye } from 'react-icons/ai'
 import { BiGitRepoForked } from 'react-icons/bi'
-import { FiExternalLink } from 'react-icons/fi'
 
 function RepoCard({
     id,
@@ -68,7 +66,7 @@ function RepoCard({
 
     // Repo card div
     <div 
-      className='hover:scale-[1.04] hover:shadow-xl hover:cursor-pointer min-w-[270px] max-w-[370px] w-[20%] bg-white shadow-md rounded-md p-3 flex flex-col justify-between transition-all'
+      className='hover:scale-[1.04] hover:shadow-xl hover:cursor-pointer min-w-[270px] max-w-[370px] w-[40%] bg-white shadow-md rounded-md p-3 flex flex-col justify-between transition-all'
       onClick={redirectToRepo}
     >
 
