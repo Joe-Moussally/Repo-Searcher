@@ -21,7 +21,6 @@ export const resultSlice = createSlice({
   },
 })
 
-// Action creators are generated for each case reducer function
 export const { updateArray, clearArray } = resultSlice.actions
 
 export const getRepos = (state) => state.result.array

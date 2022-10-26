@@ -1,13 +1,18 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
+
+import { updateArray,clearArray, getRepos } from '../features/resultSlice';
+import { useDispatch,useSelector } from 'react-redux';
+import { getSearch } from '../features/searchSlice';
+
 import EmptyState from '../components/EmptyState'
 import SearchBar from '../components/SearchBar'
-import axios from 'axios';
-import { useDispatch,useSelector } from 'react-redux';
-import { updateArray,clearArray, getRepos } from '../features/resultSlice';
-import { getSearch } from '../features/searchSlice';
 import RepoCard from '../components/RepoCard';
-import { AiFillStar } from 'react-icons/ai' 
 import Loading from '../components/Loading';
+
+import axios from 'axios';
+
+//search page count
+let page = 1;
 
 function HomeScreem() {
 
@@ -15,9 +20,6 @@ function HomeScreem() {
 
   //search input
   const searchInput = useSelector(getSearch);
-
-  //search page count
-  let page = 1;
 
   //response array stored in redux store
   const array = useSelector(getRepos);

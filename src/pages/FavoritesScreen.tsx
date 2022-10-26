@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react'
-import { BiArrowBack } from 'react-icons/bi'
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+
+import { useSelector } from 'react-redux'
+import { getFavorites } from '../features/favoritesSlice'
+
 import EmptyState from '../components/EmptyState'
 import RepoCard from '../components/RepoCard'
-import { getFavorites } from '../features/favoritesSlice'
+
+import { BiArrowBack } from 'react-icons/bi'
+
 
 function FavoritesScreen() {
 

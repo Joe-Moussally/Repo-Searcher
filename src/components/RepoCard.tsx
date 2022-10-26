@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import { BiGitRepoForked } from 'react-icons/bi'
-import { AiFillStar, AiFillEye } from 'react-icons/ai'
-import { FiExternalLink } from 'react-icons/fi'
+import { useState, useEffect } from 'react'
+
 import AddToFavoritesButton from './AddToFavoritesButton'
-import { useDispatch, useSelector } from 'react-redux'
-import { toggleFavorite, getFavorites } from '../features/favoritesSlice'
 import Button from './Button'
+
+import { toggleFavorite, getFavorites } from '../features/favoritesSlice'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { AiFillStar, AiFillEye } from 'react-icons/ai'
+import { BiGitRepoForked } from 'react-icons/bi'
+import { FiExternalLink } from 'react-icons/fi'
 
 function RepoCard({
     id,

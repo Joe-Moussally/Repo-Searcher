@@ -1,9 +1,14 @@
+import { useNavigate } from 'react-router-dom';
+
 import { useDispatch } from 'react-redux'
 import { updateSearch } from '../features/searchSlice';
+
 import styles from '../style_modules/SearchBar.module.css';
+
 import { AiFillStar } from 'react-icons/ai'
-import { useNavigate } from 'react-router-dom';
+
 import Button from './Button';
+
 
 let timer
 
@@ -35,7 +40,7 @@ function SearchBar() {
       <input
         placeholder='Search Repositories...'
         className={styles.searchbar}
-        onKeyUp={(e) => handleSearch(e.currentTarget.value)}
+        onChange={(e) => handleSearch(e.currentTarget.value)}
       />
 
       {/* see favorite repos button */}

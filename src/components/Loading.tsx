@@ -1,4 +1,3 @@
-import React from 'react'
 import Styles from '../style_modules/Loading.module.css'
 
 function Loading() {
