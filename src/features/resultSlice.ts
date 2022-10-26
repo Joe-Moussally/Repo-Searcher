@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface resultState {
   array:any[]
@@ -25,6 +24,6 @@ export const resultSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { updateArray, clearArray } = resultSlice.actions
 
-export const getRepos = (state) => state.array
+export const getRepos = (state) => state.result.array
 
 export default resultSlice.reducer

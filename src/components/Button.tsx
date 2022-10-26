@@ -2,7 +2,7 @@ function Button({
     onClick,
     text,
     color = '#00254d',
-    icon = null
+    icon = null,
 }) {
   return (
     <button
@@ -21,7 +21,7 @@ function Button({
             className='mx-1'
         >
           {icon}
-        </div>:<></>
+        </div>:null
         
     }
 

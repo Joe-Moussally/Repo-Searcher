@@ -30,9 +30,9 @@ function RepoCard({
   //function that adds the current repo to the favorites array in redux store
   const toggleFavoriteInStore = () => {
     dispatch(toggleFavorite({
-      id:id,
-      repoName:repoName,
-      description:description,
+      id,
+      repoName,
+      description,
       ownerName:ownerName,
       avatarUrl:avatarUrl,
       forkCount:forkCount,

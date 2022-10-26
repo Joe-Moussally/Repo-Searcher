@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface searchState {
   value:String
@@ -19,7 +18,6 @@ export const searchSlice = createSlice({
   },
 })
 
-// Action creators are generated for each case reducer function
 export const { updateSearch } = searchSlice.actions
 
 export const getSearch = (state) => state.search.value

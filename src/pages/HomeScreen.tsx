@@ -3,7 +3,7 @@ import EmptyState from '../components/EmptyState'
 import SearchBar from '../components/SearchBar'
 import axios from 'axios';
 import { useDispatch,useSelector } from 'react-redux';
-import { updateArray,clearArray } from '../features/resultSlice';
+import { updateArray,clearArray, getRepos } from '../features/resultSlice';
 import { getSearch } from '../features/searchSlice';
 import RepoCard from '../components/RepoCard';
 import { AiFillStar } from 'react-icons/ai' 
@@ -20,7 +20,7 @@ function HomeScreem() {
   let page = 1;
 
   //response array stored in redux store
-  const array = useSelector((state:any) => state.result.array);
+  const array = useSelector(getRepos);
 
   //track the number of results
   const [resultsNumber,setResultsNumber] = useState(0)

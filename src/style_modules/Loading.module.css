@@ -11,7 +11,7 @@
     margin: 12px;
     border-radius: 8px;
     background-color: lightgray;
-    animation: jump .6s ease-in-out;
+    animation: jump .9s ease-in-out infinite;
 }
 
 /* up->down animation */
@@ -28,10 +28,10 @@
 
 /* dot-2 */
 .loading_container div:nth-child(2){
-    animation-delay: .6s;
+    animation-delay: .5s;
 }
 
 /* dot-3 */
 .loading_container div:nth-child(3){
-    animation-delay: .8s;
+    animation-delay: .6s;
 }
