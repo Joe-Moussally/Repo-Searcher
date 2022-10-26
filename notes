@@ -1,19 +1,13 @@
--- create card component
+save favorites in local storage
 
--- redirection on card press
+on repo card click
 
--- local stroge
+-- contrast background
 
--- no result found
+adjust add to favorties button to normal buton component
 
--- load on scroll
+on scroll loading animation
 
--- add to favorites
+gap between cards
 
--- loading animation
-
--- useEffect and cleanup
-
--- css module
-
--- error handling
+css nth-child selector to class

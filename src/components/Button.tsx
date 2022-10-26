@@ -6,7 +6,7 @@ function Button({
 }) {
   return (
     <button
-    className='hover:cursor-pointer flex items-center border-[#00254d] border-[1.2px] rounded-md p-1 text-[00254d] hover:border-b-[3px] border-b-[#00162e] transition-all duration-200'
+    className='bg-white hover:cursor-pointer flex items-center border-[#00254d] border-[1.2px] rounded-md p-1 text-[00254d] hover:border-b-[3px] border-b-[#00162e] transition-all duration-200'
     onClick={onClick}
     style={{
       borderColor:color,

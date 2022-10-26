@@ -61,7 +61,7 @@ function RepoCard({
 
     // Repo card div
     <div 
-      className='w-[370px] shadow-sm rounded-md p-3 flex flex-col justify-between'  
+      className='w-[370px] bg-white shadow-md rounded-md p-3 flex flex-col justify-between'  
     >
 
       {/* Repo header container -> avatar + repo name */}
