@@ -177,7 +177,7 @@ function HomeScreem() {
               //if api is still fetching -> display loading animation
               (isLoading)?
               <Loading />:
-                !(errorMessage === '')?
+                errorMessage?
                 //if error message changed -> display error message
                 <EmptyState error={true} text={errorMessage}/>:
                 //if repos array is empty and search not empty
@@ -192,7 +192,7 @@ function HomeScreem() {
 
           {/* repo cards container */}
           <div
-            className='flex flex-wrap justify-center gap-2 pb-20'
+            className='flex flex-wrap justify-center gap-5 pb-20'
           >
 
             {

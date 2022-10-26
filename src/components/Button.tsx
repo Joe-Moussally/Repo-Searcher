@@ -1,8 +1,9 @@
 function Button({
     onClick,
-    text,
+    text = '',
     color = '#00254d',
     icon = null,
+    filled = false,
 }) {
   return (
     <button
@@ -10,22 +11,25 @@ function Button({
     onClick={onClick}
     style={{
       borderColor:color,
-      color:color
+      color:filled?'white':color,
+      backgroundColor:filled?color:'white'
     }}
   >
 
     {/* if component button included an icon -> display it */}
     {
         icon?
-        <div
-            className='mx-1'
-        >
+        <div>
           {icon}
         </div>:null
         
     }
 
-    {text}
+    {/* Button text */}
+    <div className={text?'mx-1':null}>
+      {text?text:null}
+    </div>
+
   </button>
   )
 }

@@ -1,13 +1,19 @@
 save favorites in local storage
 
-on repo card click
+-- on repo card click
 
 -- contrast background
 
-adjust add to favorties button to normal buton component
+-- adjust add to favorties button to normal buton component
 
 on scroll loading animation
 
-gap between cards
+-- gap between cards
 
-css nth-child selector to class
+-- css nth-child selector to class
+
+track is favorite in global store
+
+try catch history array
+
+chaining in format number

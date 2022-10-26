@@ -31,20 +31,22 @@ function RepoCard({
   const favoriteRepos = useSelector(getFavorites)
 
   //function that adds the current repo to the favorites array in redux store
-  const toggleFavoriteInStore = () => {
+  const toggleFavoriteInStore = (event) => {
     dispatch(toggleFavorite({
       id,
       repoName,
       description,
-      ownerName:ownerName,
-      avatarUrl:avatarUrl,
-      forkCount:forkCount,
-      starCount:starCount,
-      watcherCount:watcherCount,
-      repoUrl:repoUrl
+      ownerName,
+      avatarUrl,
+      forkCount,
+      starCount,
+      watcherCount,
+      repoUrl
     }))
     // toggle isFavorite true/false
     setIsFavorite(prevFav => !prevFav)
+
+    event.stopPropagation()
   }
 
   //function to check if the repo is in the favorites
@@ -53,6 +55,11 @@ function RepoCard({
     if(repoIndex !== -1) setIsFavorite(true)
   }
 
+  //function to redirect to repo url
+  const redirectToRepo = () => {
+    window.open(repoUrl,'_blank')
+  }
+  
   useEffect(() => {
     checkFavorites()
   },[])
@@ -61,7 +68,8 @@ function RepoCard({
 
     // Repo card div
     <div 
-      className='w-[370px] bg-white shadow-md rounded-md p-3 flex flex-col justify-between'  
+      className='hover:scale-[1.04] hover:shadow-xl hover:cursor-pointer min-w-[270px] max-w-[370px] w-[20%] bg-white shadow-md rounded-md p-3 flex flex-col justify-between transition-all'
+      onClick={redirectToRepo}
     >
 
       {/* Repo header container -> avatar + repo name */}
@@ -71,11 +79,11 @@ function RepoCard({
           src={avatarUrl}
           className='border-2 w-[40px] h-[40px] rounded-full m-2'
         />
-        <div className='w- text-xl font-bold'>{repoName}</div>
+        <div className='w- text-xl font-bold break-all'>{repoName}</div>
       </div>
       
       {/* repo description */}
-      <div className='text-gray-400 text-sm'>{description}</div>
+      <div className='text-gray-400 text-sm break-all'>{description}</div>
 
       {/* Card footer -> repo stars and forks + add to favorites button */}
       <div
@@ -100,16 +108,11 @@ function RepoCard({
           </div>
         </div>
 
-        {/* Visit repo button */}
-        <Button
-          text='Vitist Repo'
-          onClick={() => {window.open(repoUrl,'_blank')}}
-          icon={<FiExternalLink />}
-        />
-
         {/* Add to favorites button */}
-        <AddToFavoritesButton
-          onClick={toggleFavoriteInStore}
+        <Button
+          onClick={(e) => toggleFavoriteInStore(e)}
+          icon={<AiFillStar />}
+          color='#d4b400'
           filled={isFavorite}
         />
 
