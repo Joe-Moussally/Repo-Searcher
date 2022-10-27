@@ -58,7 +58,7 @@ function RepoCard({
 
     //find if the repo is already in array
     let repoIndex = favoritesArray.findIndex(repo => repo.id === id)
-    console.log(favoritesArray)
+
     //if repo is not in array -> add it
     if(repoIndex === -1) {
       favoritesArray = [...favoritesArray,{
@@ -83,20 +83,11 @@ function RepoCard({
     event.stopPropagation()
   }
 
-  //function to check if the repo is in the favorites
-  const checkFavorites = () => {
-    let repoIndex = favoriteRepos.findIndex(repo => repo.id === id);
-    if(repoIndex !== -1) setIsFavorite(true)
-  }
-
   //function to redirect to repo url
   const redirectToRepo = () => {
     window.open(repoUrl,'_blank')
   }
   
-  useEffect(() => {
-    checkFavorites()
-  },[])
 
   return (
 

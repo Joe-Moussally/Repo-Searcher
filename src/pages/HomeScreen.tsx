@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 
 import { updateArray,clearArray, getRepos } from '../features/resultSlice';
 import { useDispatch,useSelector } from 'react-redux';
-import { getSearch } from '../features/searchSlice';
+import { getSearch, updateSearch } from '../features/searchSlice';
 
 import EmptyState from '../components/EmptyState'
 import SearchBar from '../components/SearchBar'
@@ -49,7 +49,7 @@ function HomeScreem() {
   const searchInput = useSelector(getSearch);
 
   //response array stored in redux store
-  const array = useSelector(getRepos);
+  const reposArray = useSelector(getRepos);
 
   //track the number of results
   const [resultsNumber,setResultsNumber] = useState(0)
@@ -65,6 +65,26 @@ function HomeScreem() {
   //ex: 6012554 -> 6,012,554
   const formatNumber = (number) => {
     return number?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  // function to clear search in redux store
+  const clearSearch = () => {
+    dispatch(updateSearch(''))
+  }
+
+  //function to clear the repos array in redux store
+  const clearReposArray = () => {
+    dispatch(clearArray())
+  }
+
+  //function that calls fetchData on end scroll
+  const fetchOnEnd = () => {
+    console.log("HERE")
+    //if scroll position reaches the end
+    if ((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight) {
+      // on end list reach -> increase page count and call fetch        
+      fetchData()
+    }
   }
 
   //function to call the api
@@ -116,6 +136,12 @@ function HomeScreem() {
   }
 
   // ------------- useEffect -------------
+  useEffect(() => {
+    // on first render  -> clear search input
+    clearSearch()
+    clearReposArray()
+
+  },[])
   
   useEffect(() => {
 
@@ -129,17 +155,18 @@ function HomeScreem() {
     updateHistory(searchInput)
 
     // adding on scroll event for new search input
-    window.onscroll = () => {
-      //if scroll position reaches the end
-      if ((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight) {
-        // on end list reach -> increase page count and call fetch        
-        fetchData()
-      }
-    }
+    // window.onscroll = () => {
+    //   //if scroll position reaches the end
+    //   if ((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight) {
+    //     // on end list reach -> increase page count and call fetch        
+    //     fetchData()
+    //   }
+    // }
+    window.addEventListener('scroll',fetchOnEnd)
 
     //cleanup function
     return () => {
-
+      window.removeEventListener('scroll',fetchOnEnd)
     }
 
   },[searchInput])
@@ -151,7 +178,7 @@ function HomeScreem() {
       <SearchBar />
 
       {
-        (array.length === 0)?
+        (reposArray.length === 0)?
         <>
           {
             (isLoading && searchInput)?
@@ -180,8 +207,8 @@ function HomeScreem() {
           >
 
             {
-              array.map((item) => {
-                return (
+              reposArray.map((item) => 
+                 (
                   <RepoCard
                     key={item.id}
                     id={item.id}
@@ -195,7 +222,7 @@ function HomeScreem() {
                     watcherCount={formatNumber(item.watchers_count)}
                   />
                 )
-              })
+              )
             }
           </div>
         </div>
