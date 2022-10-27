@@ -60,6 +60,11 @@ function HomeScreem() {
   //error message text
   const [errorMessage,setErrorMessage] = useState('');
 
+  const [searchResultObject,setSearchResultObject] = useState({
+    resultsNumber:0,
+    isLoading:false,
+    errorMessage:''
+  })
 
   //function that formats a number to string format for visualization
   //ex: 6012554 -> 6,012,554
@@ -99,19 +104,14 @@ function HomeScreem() {
     //isLoading true -> display loading animation
     setIsLoading(true)
 
-    //set url parameter and call the api
-    let baseUrl = "https://api.github.com/search/repositories?"
-
-    //adding search query
-    baseUrl+='q='+searchInput
-    //adding per page result
-    baseUrl+='&per_page=20'
-    //adding page number
-    baseUrl+='&page='+page+1
-
     //fetching data
     axios({
-      url:baseUrl
+      url:'https://api.github.com/search/repositories',
+      data:{
+        'q':searchInput,
+        'per_page':20,
+        'page':page+1
+      }
     }).then(response => {
       //update result array in redux store
       dispatch(updateArray(response.data.items))
@@ -119,6 +119,12 @@ function HomeScreem() {
       setResultsNumber(formatNumber(response.data.total_count))
       //end loading animation
       setIsLoading(false)
+
+      setSearchResultObject({
+        resultsNumber:formatNumber(response.data.total_count),
+        isLoading:false,
+        errorMessage:''
+      })
 
       //on success -> prepare for next page
       page += 1
@@ -153,14 +159,6 @@ function HomeScreem() {
     //when search input changes -> udpate the search history
     updateHistory(searchInput)
 
-    // adding on scroll event for new search input
-    // window.onscroll = () => {
-    //   //if scroll position reaches the end
-    //   if ((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight) {
-    //     // on end list reach -> increase page count and call fetch        
-    //     fetchData()
-    //   }
-    // }
     window.addEventListener('scroll',fetchOnEnd)
 
     //cleanup function
