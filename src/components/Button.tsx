@@ -4,6 +4,7 @@ function Button({
     color = '#00254d',
     icon = null,
     filled = false,
+    ...rest
 }) {
   return (
     <button
@@ -12,7 +13,8 @@ function Button({
     style={{
       borderColor:color,
       color:filled?'white':color,
-      backgroundColor:filled?color:'white'
+      backgroundColor:filled?color:'white',
+      ...rest.styles      
     }}
   >
 
