@@ -18,27 +18,37 @@ let page = 0;
 
 //function to update search history in local storage
 const updateHistory = (searchValue) => {
+  try {
 
-  //if search is empty string -> return
-  if(searchValue === '') return
+    //if search is empty string -> return
+    if(searchValue === '') return
 
-  //get history array from local storage
-  let historyArray:any
-  historyArray = JSON.parse(localStorage.getItem('history'))
+    //get history array from local storage
+    let historyArray:any
+    historyArray = JSON.parse(localStorage.getItem('history'))
 
-  // if history array is not an array -> create new array
-  if(!Array.isArray(historyArray)) {
-    localStorage.removeItem('history')
-    historyArray = []
+    // if history array is not an array -> create new array
+    if(!Array.isArray(historyArray)) {
+      localStorage.removeItem('history')
+      historyArray = []
+    }
+
+    //append new search to array
+    historyArray.push(searchValue)
+
+    //update local data
+    localStorage.setItem('history',JSON.stringify(historyArray))
+
+  }catch {
+    return false
   }
-
-  //append new search to array
-  historyArray.push(searchValue)
-
-  //update local data
-  localStorage.setItem('history',JSON.stringify(historyArray))
 }
 
+//function that formats a number to string format for visualization
+//ex: 6012554 -> 6,012,554
+const formatNumber = (number) => {
+  return number?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 
 function HomeScreem() {
@@ -60,18 +70,6 @@ function HomeScreem() {
   //error message text
   const [errorMessage,setErrorMessage] = useState('');
 
-  const [searchResultObject,setSearchResultObject] = useState({
-    resultsNumber:0,
-    isLoading:false,
-    errorMessage:''
-  })
-
-  //function that formats a number to string format for visualization
-  //ex: 6012554 -> 6,012,554
-  const formatNumber = (number) => {
-    return number?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
-
   // function to clear search in redux store
   const clearSearch = () => {
     dispatch(updateSearch(''))
@@ -84,7 +82,7 @@ function HomeScreem() {
 
   //function that calls fetchData on end scroll
   const fetchOnEnd = () => {
-    console.log("HERE")
+
     //if scroll position reaches the end
     if ((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight) {
       // on end list reach -> increase page count and call fetch        
@@ -155,14 +153,6 @@ function HomeScreem() {
     //when search input changes -> udpate the search history
     updateHistory(searchInput)
 
-    // adding on scroll event for new search input
-    // window.onscroll = () => {
-    //   //if scroll position reaches the end
-    //   if ((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight) {
-    //     // on end list reach -> increase page count and call fetch        
-    //     fetchData()
-    //   }
-    // }
     window.addEventListener('scroll',fetchOnEnd)
 
     //cleanup function
@@ -193,6 +183,9 @@ function HomeScreem() {
                 'Type in the search bar':
                 'No Repos Found'
               }
+              error={
+                errorMessage?true:false
+              }
             />
           }
         </>:
@@ -204,7 +197,7 @@ function HomeScreem() {
 
           {/* repo cards container */}
           <div
-            className='flex flex-wrap justify-center gap-2 pb-20'
+            className='flex flex-wrap justify-center gap-5 pb-20'
           >
 
             {
