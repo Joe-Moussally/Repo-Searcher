@@ -6,14 +6,16 @@
 
 -- adjust add to favorties button to normal buton component
 
-on scroll loading animation
+-- on scroll loading animation
 
 -- gap between cards
 
 -- css nth-child selector to class
 
-track is favorite in global store
+-- track is favorite in locale storage
 
 try catch history array
 
 -- chaining in format number
+
+multiple useStates in one

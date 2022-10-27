@@ -1,7 +1,7 @@
 .loading_container {
     width: fit-content;
     display: flex;
-    margin: 100px;
+    margin-bottom: 100px;
 }
 
 /* dots */

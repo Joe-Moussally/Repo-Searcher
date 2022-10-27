@@ -30,7 +30,7 @@ function SearchBar() {
 
 
   return (
-    <>
+    <div className='flex flex-col justify-center items-center mb-12'>
       {/* searbar input */}
       <input
         placeholder='Search Repositories...'
@@ -45,7 +45,7 @@ function SearchBar() {
         text='Favorite Repos'
         color='#c2a500'
       />
-    </>
+    </div>
   )
 }
 

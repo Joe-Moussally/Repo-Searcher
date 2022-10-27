@@ -92,13 +92,12 @@ function HomeScreem() {
 
     //reset error message on data fetch
     setErrorMessage('')
+  
+    //if search is empty
+    if(searchInput === '') return
 
     //isLoading true -> display loading animation
     setIsLoading(true)
-  
-
-    //if search is empty
-    if(searchInput === '') return
 
     //set url parameter and call the api
     let baseUrl = "https://api.github.com/search/repositories?"
@@ -198,7 +197,7 @@ function HomeScreem() {
         <div className='flex flex-col'>
           {/* search result number */}
           <span
-           className='self-center -translate-y-20 text-sm text-gray-400' 
+           className='self-center -translate-y-40 text-sm text-gray-400' 
           >{resultsNumber} repos found</span>
 
           {/* repo cards container */}
@@ -227,6 +226,12 @@ function HomeScreem() {
           </div>
         </div>
       }
+
+      {
+        (isLoading && page>0)?
+        <Loading />:null
+      }
+
     </div>
   )
 }
