@@ -104,10 +104,12 @@ function HomeScreem() {
     //isLoading true -> display loading animation
     setIsLoading(true)
 
+    //set url parameter and call the api
+    let apiURL = "https://api.github.com/search/repositories"
     //fetching data
     axios({
-      url:'https://api.github.com/search/repositories',
-      data:{
+      url:apiURL,
+      params:{
         'q':searchInput,
         'per_page':20,
         'page':page+1
@@ -120,12 +122,6 @@ function HomeScreem() {
       //end loading animation
       setIsLoading(false)
 
-      setSearchResultObject({
-        resultsNumber:formatNumber(response.data.total_count),
-        isLoading:false,
-        errorMessage:''
-      })
-
       //on success -> prepare for next page
       page += 1
 
@@ -133,7 +129,7 @@ function HomeScreem() {
       //stop loading animation
       setIsLoading(false)
 
-      if(err.response.status === 400 || err.response.status === 429) {
+      if([400,422,429].includes(err.response.status)) {
         //display error message
         setErrorMessage('Try Again Later')
       }
@@ -159,6 +155,14 @@ function HomeScreem() {
     //when search input changes -> udpate the search history
     updateHistory(searchInput)
 
+    // adding on scroll event for new search input
+    // window.onscroll = () => {
+    //   //if scroll position reaches the end
+    //   if ((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight) {
+    //     // on end list reach -> increase page count and call fetch        
+    //     fetchData()
+    //   }
+    // }
     window.addEventListener('scroll',fetchOnEnd)
 
     //cleanup function
