@@ -26,11 +26,6 @@ function SearchBar() {
       //update search input value
       dispatch(updateSearch(searchValue))
     },600)
-
-    //cleanup function
-    return () => {
-      timer = null;
-    }
   }
 
 

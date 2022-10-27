@@ -23,7 +23,14 @@ function RepoCard({
   const dispatch = useDispatch();
 
   //track if repo is favorited or no
-  const [isFavorite,setIsFavorite] = useState(false)
+  const [isFavorite,setIsFavorite] = useState(() => {
+    //find the repo index in the local storage array
+    let repoIndex = JSON.parse(localStorage.getItem('favorites')).findIndex(repo => repo.id === id)
+
+    // if not found return false
+    if(repoIndex === -1) return false
+    else return true
+  })
 
   //get the favorites repos array from redux
   const favoriteRepos = useSelector(getFavorites)
@@ -43,6 +50,35 @@ function RepoCard({
     }))
     // toggle isFavorite true/false
     setIsFavorite(prevFav => !prevFav)
+
+    //toggle repo favorites in local storage
+    let favoritesArray = JSON.parse(localStorage.getItem('favorites'))
+
+    if(favoritesArray === null) favoritesArray = []
+
+    //find if the repo is already in array
+    let repoIndex = favoritesArray.findIndex(repo => repo.id === id)
+    console.log(favoritesArray)
+    //if repo is not in array -> add it
+    if(repoIndex === -1) {
+      favoritesArray = [...favoritesArray,{
+        id,
+        repoName,
+        description,
+        ownerName,
+        avatarUrl,
+        forkCount,
+        starCount,
+        watcherCount,
+        repoUrl
+      }]
+    } else {
+      //remove repo from array
+      favoritesArray = favoritesArray.filter(repo => repo.id !== id)
+    }
+
+    //save the array in the local storage
+    localStorage.setItem('favorites',JSON.stringify(favoritesArray))
 
     event.stopPropagation()
   }

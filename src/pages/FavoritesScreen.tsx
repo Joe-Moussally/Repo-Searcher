@@ -7,13 +7,14 @@ import EmptyState from '../components/EmptyState'
 import RepoCard from '../components/RepoCard'
 
 import { BiArrowBack } from 'react-icons/bi'
+import { useEffect } from 'react'
 
 
 function FavoritesScreen() {
 
   const navigate = useNavigate();
 
-  const favoritesArray = useSelector(getFavorites)
+  const favoritesArray = JSON.parse(localStorage.getItem('favorites'))
 
   return (
     <div>

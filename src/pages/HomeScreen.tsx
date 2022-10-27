@@ -11,8 +11,35 @@ import Loading from '../components/Loading';
 
 import axios from 'axios';
 
+
+
 //search page count
 let page = 0;
+
+//function to update search history in local storage
+const updateHistory = (searchValue) => {
+
+  //if search is empty string -> return
+  if(searchValue === '') return
+
+  //get history array from local storage
+  let historyArray:any
+  historyArray = JSON.parse(localStorage.getItem('history'))
+
+  // if history array is not an array -> create new array
+  if(!Array.isArray(historyArray)) {
+    localStorage.removeItem('history')
+    historyArray = []
+  }
+
+  //append new search to array
+  historyArray.push(searchValue)
+
+  //update local data
+  localStorage.setItem('history',JSON.stringify(historyArray))
+}
+
+
 
 function HomeScreem() {
 
@@ -34,29 +61,6 @@ function HomeScreem() {
   const [errorMessage,setErrorMessage] = useState('');
 
 
-  //function to update search history in local storage
-  const updateHistory = (searchValue) => {
-
-    //if search is empty string -> return
-    if(searchValue === '') return
-
-    //get history array from local storage
-    let historyArray:any
-    historyArray = JSON.parse(localStorage.getItem('history'))
-
-    // if history array is not an array -> create new array
-    if(!Array.isArray(historyArray)) {
-      localStorage.removeItem('history')
-      historyArray = []
-    }
-
-    //append new search to array
-    historyArray.push(searchValue)
-
-    //update local data
-    localStorage.setItem('history',JSON.stringify(historyArray))
-  }
-
   //function that formats a number to string format for visualization
   //ex: 6012554 -> 6,012,554
   const formatNumber = (number) => {
@@ -71,9 +75,6 @@ function HomeScreem() {
 
     //isLoading true -> display loading animation
     setIsLoading(true)
-
-    //clear array in redux store and return
-    // dispatch(clearArray())
   
 
     //if search is empty
@@ -114,41 +115,14 @@ function HomeScreem() {
     })
   }
 
-  //function that is called when the user reaches the end of the list
-  // const fetchMoreData = () => {
-  //   //increment page count
-  //   page += 1
-
-  //   //set url parameter and call the api
-  //   let baseUrl = "https://api.github.com/search/repositories?"
-
-  //   //adding search query
-  //   baseUrl+='q='+searchInput
-  //   //adding per page result
-  //   baseUrl+='&per_page=20'
-  //   //adding page number
-  //   baseUrl+='&page='+page
-
-  //   //fetching data
-  //   axios({
-  //     url:baseUrl
-  //   }).then(response => {
-  //     //update result array in redux store
-  //     dispatch(updateArray(response.data.items))
-  //   }).catch((err) => {
-  //     //stop loading animation
-  //     setIsLoading(false)
-
-  //     if(err.response.status === 400 || err.response.status === 429) {
-  //       //display error message
-  //       setErrorMessage('Try Again Later')
-  //     }
-  //   })
-  // }
-
   // ------------- useEffect -------------
-  //when search input changes -> fetch data
+  
   useEffect(() => {
+
+    //clear repo array in store
+    dispatch(clearArray())
+
+    //when search input changes -> fetch data
     fetchData()
 
     //when search input changes -> udpate the search history

@@ -1,4 +1,4 @@
-save favorites in local storage
+-- save favorites in local storage
 
 -- on repo card click
 
@@ -16,4 +16,4 @@ track is favorite in global store
 
 try catch history array
 
-chaining in format number
+-- chaining in format number
